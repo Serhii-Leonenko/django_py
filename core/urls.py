@@ -4,4 +4,4 @@ from django.urls import path, include
 
 urlpatterns = [path("admin/", admin.site.urls), path("", include("messenger.urls"))]
 
-urlpatterns +=  debug_toolbar_urls()
+urlpatterns += debug_toolbar_urls()

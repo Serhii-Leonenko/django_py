@@ -1,5 +1,9 @@
-from django.views.generic import TemplateView, ListView, DetailView
+from django.shortcuts import render, redirect
+from django.urls import reverse, reverse_lazy
+from django.views import View
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
+# from messenger.forms import MessageForm
 from messenger.models import Message
 
 
@@ -17,7 +21,6 @@ class HomeView(TemplateView):
                 return None
 
         return None
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -38,10 +41,42 @@ class MessageListView(ListView):
 class MessageDetailView(DetailView):
     model = Message
 
-    def get_object(self, queryset= None):
+    def get_object(self, queryset=None):
         obj = super().get_object(queryset)
 
         if obj:
             self.request.session["last_viewed_message"] = obj.id
 
         return obj
+
+
+# -------------------------Create View----------------------------------
+# class MessageCreateView(View):
+#     def get(self, request):
+#         form = MessageForm()
+#
+#         return render(
+#             request=request,
+#             template_name="messenger/message_form.html",
+#             context={"form": form}
+#         )
+#
+#     def post(self, request):
+#         form = MessageForm(request.POST)
+#
+#         if form.is_valid():
+#             form.save()
+#
+#             return redirect(reverse("messenger:message-list"))
+#
+#         return render(
+#             request=request,
+#             template_name="messenger/message_form.html",
+#             context={"form": form}
+#         )
+
+
+class MessageCreateView(CreateView):
+    model = Message
+    fields = ["text"]
+    success_url = reverse_lazy("messenger:message-list")

@@ -1,3 +1,5 @@
+import time
+
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View

@@ -22,9 +22,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "messenger",
     "debug_toolbar",
+    "users"
 ]
 
 MIDDLEWARE = [
+    "core.middlewares.RequestTimeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -93,3 +95,5 @@ MAILERS = {
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "users.User"

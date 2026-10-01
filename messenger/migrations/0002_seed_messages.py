@@ -10,15 +10,11 @@ def seed_messages(apps, schema_editor):
 
     fake = faker.Faker()
 
-    messages = [
-        Message(text=fake.sentence())
-        for _ in range(100)
-    ]
+    messages = [Message(text=fake.sentence()) for _ in range(100)]
     Message.objects.bulk_create(messages)
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("messenger", "0001_initial"),
     ]

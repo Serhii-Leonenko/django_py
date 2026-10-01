@@ -7,7 +7,7 @@ class RequestTimeMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        request_id = request.headers.get('X-Request-ID') or uuid.uuid4()
+        request_id = request.headers.get("X-Request-ID") or uuid.uuid4()
 
         start_time = time.perf_counter()
 
@@ -15,7 +15,7 @@ class RequestTimeMiddleware:
 
         execution_time = (time.perf_counter() - start_time) * 1000
 
-        response['X-Request-ID'] = request_id
-        response['X-Response-Time'] = f'{execution_time:.2f}ms'
+        response["X-Request-ID"] = request_id
+        response["X-Response-Time"] = f"{execution_time:.2f}ms"
 
         return response

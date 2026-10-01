@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "messenger",
     "debug_toolbar",
-    "users"
+    "users",
 ]
 
 MIDDLEWARE = [

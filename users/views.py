@@ -6,8 +6,7 @@ from users.services import UserService
 class UserRegisterView(...):
     user_service = UserService()
 
-    def get(self, request):
-        ...
+    def get(self, request): ...
 
     def post(self, request):
         form = Form(request.POST)

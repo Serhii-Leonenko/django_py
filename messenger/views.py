@@ -1,11 +1,6 @@
-import time
-
-from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
-from django.views import View
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
-# from messenger.forms import MessageForm
 from messenger.models import Message
 
 
@@ -34,12 +29,10 @@ class HomeView(TemplateView):
         return context
 
 
-# --------------------------List View =================================
 class MessageListView(ListView):
     model = Message
 
 
-# --------------------------Detail View ================================
 class MessageDetailView(DetailView):
     model = Message
 
@@ -50,32 +43,6 @@ class MessageDetailView(DetailView):
             self.request.session["last_viewed_message"] = obj.id
 
         return obj
-
-
-# -------------------------Create View----------------------------------
-# class MessageCreateView(View):
-#     def get(self, request):
-#         form = MessageForm()
-#
-#         return render(
-#             request=request,
-#             template_name="messenger/message_form.html",
-#             context={"form": form}
-#         )
-#
-#     def post(self, request):
-#         form = MessageForm(request.POST)
-#
-#         if form.is_valid():
-#             form.save()
-#
-#             return redirect(reverse("messenger:message-list"))
-#
-#         return render(
-#             request=request,
-#             template_name="messenger/message_form.html",
-#             context={"form": form}
-#         )
 
 
 class MessageCreateView(CreateView):

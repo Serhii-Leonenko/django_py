@@ -1,4 +1,9 @@
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,15 +93,23 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-MAILERS = {
-    "default": {
-        "BACKEND": "django.core.mail.backends.console.EmailBackend",
-    },
-}
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
 
 LOGIN_URL = "registration:login"
 LOGIN_REDIRECT_URL = "messenger:home"
+
+# EMAIL
+MAILERS = {
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": "smtp.gmail.com",
+            "use_tls": True,
+            "username": os.environ.get('GMAIL_HOST_USER'),
+            "password": os.environ.get('GMAIL_HOST_PASSWORD'),
+            "port": 587,
+        },
+    },
+}

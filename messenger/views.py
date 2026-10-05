@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
@@ -29,12 +30,14 @@ class HomeView(TemplateView):
         return context
 
 
-class MessageListView(ListView):
+class MessageListView(PermissionRequiredMixin, ListView):
     model = Message
+    permission_required = "messenger.view_message"
 
 
-class MessageDetailView(DetailView):
+class MessageDetailView(PermissionRequiredMixin, DetailView):
     model = Message
+    permission_required = "messenger.view_message"
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
@@ -45,7 +48,8 @@ class MessageDetailView(DetailView):
         return obj
 
 
-class MessageCreateView(CreateView):
+class MessageCreateView(PermissionRequiredMixin, CreateView):
     model = Message
     fields = ["text"]
     success_url = reverse_lazy("messenger:message-list")
+    permission_required = "messenger.add_message"

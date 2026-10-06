@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -35,6 +36,8 @@ class UserActivationView(View):
         user_service = get_user_service()
         user_service.activate_user(uid, token)
 
-        messages.success(request, "User activated successfully")
+        logout(request)
+
+        messages.success(request, "User activated successfully, now you can login")
 
         return redirect("users:login")

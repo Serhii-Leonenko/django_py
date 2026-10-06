@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 
+from messenger.forms import MessageForm
 from messenger.models import Message
 
 
@@ -34,6 +35,20 @@ class MessageListView(PermissionRequiredMixin, ListView):
     model = Message
     permission_required = "messenger.view_message"
 
+    def get_context_data(
+        self,
+        *,
+        object_list = None,
+        **kwargs
+    ):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+
+        if self.request.user.has_perm("messenger.add_message"):
+            form = MessageForm()
+            context["form"] = form
+
+        return context
+
 
 class MessageDetailView(PermissionRequiredMixin, DetailView):
     model = Message
@@ -50,6 +65,6 @@ class MessageDetailView(PermissionRequiredMixin, DetailView):
 
 class MessageCreateView(PermissionRequiredMixin, CreateView):
     model = Message
-    fields = ["text"]
+    form_class = MessageForm
     success_url = reverse_lazy("messenger:message-list")
     permission_required = "messenger.add_message"

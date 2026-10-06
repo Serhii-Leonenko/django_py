@@ -123,7 +123,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 "verbose_name": "user",
-                "verbose_name_plural": "registration",
+                "verbose_name_plural": "users",
                 "abstract": False,
             },
             managers=[

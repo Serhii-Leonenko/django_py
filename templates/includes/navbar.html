@@ -14,17 +14,17 @@
                     <span class="navbar-text me-2">{{ user.username }}</span>
                 </li>
                 <li class="nav-item">
-                    <form action="{% url 'registration:logout' %}" method="post" class="d-inline">
+                    <form action="{% url 'users:logout' %}" method="post" class="d-inline">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-sm btn-outline-secondary">Log out</button>
                     </form>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="btn btn-sm btn-outline-primary me-2" href="{% url 'registration:login' %}">Log in</a>
+                    <a class="btn btn-sm btn-outline-primary me-2" href="{% url 'users:login' %}">Log in</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-sm btn-primary" href="{% url 'registration:register' %}">Register</a>
+                    <a class="btn btn-sm btn-primary" href="{% url 'users:register' %}">Register</a>
                 </li>
             {% endif %}
         </ul>

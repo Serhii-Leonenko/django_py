@@ -12,7 +12,7 @@ from users.services.user_service import get_user_service
 class UserRegisterView(FormView):
     form_class = UserRegisterForm
     template_name = "registration/register.html"
-    success_url = reverse_lazy("registration:login")
+    success_url = reverse_lazy("users:login")
 
     def form_valid(self, form):
         url = self.request.build_absolute_uri("/")
@@ -35,4 +35,6 @@ class UserActivationView(View):
         user_service = get_user_service()
         user_service.activate_user(uid, token)
 
-        return redirect("messenger:home")
+        messages.success(request, "User activated successfully")
+
+        return redirect("users:login")

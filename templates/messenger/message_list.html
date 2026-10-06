@@ -10,6 +10,20 @@
         <span class="badge rounded-pill text-bg-primary fs-6">{{ object_list|length }}</span>
       </div>
 
+      {% if form %}
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <form action="{% url 'messenger:message-create' %}" method="post">
+              {% csrf_token %}
+              {{ form.text }}
+              <div class="d-flex justify-content-end mt-2">
+                <button type="submit" class="btn btn-primary">Send</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      {% endif %}
+
       {% if object_list %}
         <div class="list-group shadow-sm">
           {% for message in object_list %}

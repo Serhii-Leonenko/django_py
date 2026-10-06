@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from users.views import UserRegisterView, UserActivationView
 
-app_name = "registration"
+app_name = "users"
 
 urlpatterns = [
     path("register/", UserRegisterView.as_view(), name='register'),

@@ -24,6 +24,21 @@
         </div>
       {% endif %}
 
+      <input
+        type="search"
+        name="q"
+        class="form-control mb-3"
+        placeholder="Search messages..."
+        value="{{ request.GET.q }}"
+        hx-get="{% url 'messenger:message-list' %}"
+        hx-trigger="input changed delay:300ms, search"
+        hx-target="#message-list"
+        hx-select="#message-list"
+        hx-swap="outerHTML"
+        hx-push-url="true"
+      >
+
+      <div id="message-list">
       {% if object_list %}
         <div class="list-group shadow-sm">
           {% for message in object_list %}
@@ -48,6 +63,7 @@
           </div>
         </div>
       {% endif %}
+      </div>
     </div>
   </div>
 {% endblock %}

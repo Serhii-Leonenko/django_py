@@ -35,6 +35,14 @@ class MessageListView(PermissionRequiredMixin, ListView):
     model = Message
     permission_required = "messenger.view_message"
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        if query := self.request.GET.get("q"):
+            queryset = queryset.filter(text__icontains=query)
+
+        return queryset
+
     def get_context_data(
         self,
         *,

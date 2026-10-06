@@ -5,18 +5,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = "django-insecure-r)6n$38c#*zo7mxj$q0t3+m%avzggrp2co9t!q=0l7e+a7%s#a"
 
 DEBUG = True
-
-ALLOWED_HOSTS = ["*"]
-
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
